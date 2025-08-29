@@ -169,8 +169,6 @@ const Navbar: React.FC<{ setCurrentPage: (page: string) => void, currentPage: st
 const HomePage: React.FC = () => {
   const [ref1, isInView1] = useIntersectionObserver<HTMLElement>({ threshold: 0.1 });
   const [ref3, isInView3] = useIntersectionObserver<HTMLElement>({ threshold: 0.1 });
-  const [ref4, isInView4] = useIntersectionObserver<HTMLElement>({ threshold: 0.1 });
-  const [ref5, isInView5] = useIntersectionObserver<HTMLElement>({ threshold: 0.1 });
 
   return (
     <>
