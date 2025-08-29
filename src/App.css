@@ -578,145 +578,105 @@ body {
 }
 
 /* --- Gallery Styles --- */
-.prenup-gallery-section {
-  padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 5vw, 4rem);
-  text-align: center;
-  opacity: 0; /* Initial state for fade-in */
-  transform: translateY(20px);
-  transition: opacity 1s ease-out, transform 1s ease-out;
-}
-
-.prenup-gallery-section.fade-in-section {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.prenup-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: clamp(1rem, 2vw, 2rem);
-  margin-top: 2rem;
-}
-
-.gallery-item {
-  border-radius: 15px;
-  overflow: hidden;
-  cursor: pointer;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
-
-.gallery-item:hover {
-  transform: scale(1.03);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-}
-
-.gallery-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.prenup-gallery-section {
-  padding: 2rem 1rem;
+/* Section styling */
+.new-gallery {
+  padding: 3rem 1.5rem;
   text-align: center;
 }
 
-.prenup-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 1rem;
-  margin-top: 2rem;
+.gallery-title {
+  font-family: "Playfair Display", serif;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #4b2c72;
 }
 
-.gallery-item {
+.gallery-subtitle {
+  color: #666;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+/* Masonry Grid */
+.masonry-grid {
+  column-count: 2;
+  column-gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .masonry-grid {
+    column-count: 3;
+  }
+}
+
+@media (min-width: 1200px) {
+  .masonry-grid {
+    column-count: 4;
+  }
+}
+
+.masonry-item {
+  margin-bottom: 12px;
+  break-inside: avoid;
   cursor: pointer;
   overflow: hidden;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.gallery-item:hover {
+.masonry-item:hover {
   transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-.gallery-image {
+.masonry-img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
   display: block;
+  border-radius: inherit;
+  object-fit: cover;
 }
-/* Overlay covers the entire viewport */
-/* Fullscreen overlay, centers content */
+
+/* Modal */
 .modal-overlay {
   position: fixed;
-  inset: 0; /* shorthand for top/right/bottom/left: 0 */
-  background: rgba(0, 0, 0, 0.85);
-  display: flex;
-  justify-content: center;
-  align-items: center; /* center vertically */
-  z-index: 9999;
-  padding: 1rem;
-}
-
-/* Centered modal box */
-.modal-content {
-  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2000;
+  padding: 16px;
+}
+
+.modal-body {
+  position: relative;
   max-width: 90vw;
-  max-height: 90vh;
+  max-height: 85vh;
 }
 
-/* Image fits nicely inside modal */
-.modal-image {
+.modal-photo {
   max-width: 100%;
-  max-height: 80vh;
-  width: auto;
-  height: auto;
-  object-fit: contain; /* keeps proportions */
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+  max-height: 100%;
+  border-radius: 12px;
+  object-fit: contain;
 }
 
-/* Close button */
-.modal-close-btn {
+.modal-close {
   position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  font-size: 2rem;
-  font-weight: bold;
-  background: rgba(0, 0, 0, 0.6);
+  top: -12px;
+  right: -12px;
+  background: #fff;
   border: none;
   border-radius: 50%;
-  color: #fff;
+  font-size: 1.2rem;
+  width: 32px;
+  height: 32px;
   cursor: pointer;
-  line-height: 1;
-  width: 2.5rem;
-  height: 2.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
-
-.modal-close-btn:hover {
-  background: rgba(0, 0, 0, 0.8);
-}
-
-/* On small screens, shrink a bit more */
-@media (max-width: 640px) {
-  .modal-content {
-    max-width: 95vw;
-    max-height: 80vh;
-  }
-  .modal-image {
-    max-height: 65vh;
-  }
-}
-
 
 
 
@@ -968,5 +928,135 @@ body {
   .heart-decoration {
     width: clamp(.1rem, 30vw, 100rem);
     height: auto;
+  }
+}
+
+.page-section2 {
+  position: relative;
+  padding: 5%;
+  background-color: #1a202c; /* Dark background */
+  overflow: hidden;
+  color: #fff;
+}
+.container2 {
+  position: relative;
+  z-index: 10;
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.text-center {
+  text-align: center;
+}
+.heading-main {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #e2e8f0; /* Light text color for contrast */
+  margin-bottom: 1rem;
+}
+.heading-sub {
+  font-size: 1.125rem;
+  color: #a0aec0; /* Lighter text color */
+  margin-bottom: 3rem;
+}
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+@media (min-width: 768px) {
+  .image-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.image-card {
+  position: relative;
+  border-radius: 1rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transform: scale(1);
+  transition: transform 0.3s ease-in-out;
+}
+.image-card:hover {
+  transform: scale(1.05);
+}
+.image-card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+.heading-secondary {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e2e8f0; /* Light text color */
+  margin-bottom: 1rem;
+}
+.color-palette-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.color-swatch-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.color-swatch {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 9999px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 2px solid #e5e7eb;
+}
+.color-label {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: #a0aec0; /* Lighter text color */
+}
+
+/* New CSS for fade-in effect */
+.fade-in-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.fade-in-on-scroll.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Particles CSS */
+.particles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  background-color: #9333ea; /* Purple particles */
+  border-radius: 50%;
+  animation: moveAndFade 20s infinite ease-in-out;
+}
+
+@keyframes moveAndFade {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100vh) scale(1);
   }
 }

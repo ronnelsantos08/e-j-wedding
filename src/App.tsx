@@ -137,7 +137,7 @@ const Navbar: React.FC<{ setCurrentPage: (page: string) => void, currentPage: st
           {/* Desktop Navigation Links */}
           <div className="nav-links-desktop">
             <a href="#home" onClick={() => handleScrollToSection('home')} className="nav-link">Home</a>
-            <a href="#prenup-gallery" onClick={() => handleScrollToSection('prenup-gallery')} className="nav-link">Prenup</a>
+            <a href="#prenup" onClick={() => handleScrollToSection('prenup-gallery')} className="nav-link">Prenup</a>
             <a href="#location" onClick={() => handleScrollToSection('location')} className="nav-link">Location</a>
             <a href="#" onClick={() => setCurrentPage('entourage')} className="nav-link">Entourage</a>
             <a href="#dresscode" onClick={() => handleScrollToSection('dresscode')} className="nav-link">Dresscode</a>
@@ -164,20 +164,225 @@ const Navbar: React.FC<{ setCurrentPage: (page: string) => void, currentPage: st
   );
 };
 
-/**
- * The single-page content component. It combines all sections into one page.
- */
+const ParticleBackground: React.FC = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    // We'll run the canvas setup only once on component mount.
+    if (!canvasRef.current) return;
+
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Defines the properties and behavior of a single particle.
+    class Particle {
+      x: number;
+      y: number;
+      size: number;
+      speedX: number;
+      speedY: number;
+      color: string;
+      ctx: CanvasRenderingContext2D;
+      canvas: HTMLCanvasElement;
+
+      constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
+        this.canvas = canvas;
+        this.ctx = ctx;
+        this.x = Math.random() * this.canvas.width;
+        this.y = Math.random() * this.canvas.height;
+        this.size = Math.random() * 5 + 1;
+        this.speedX = Math.random() * 3 - 1.5;
+        this.speedY = Math.random() * 3 - 1.5;
+        this.color = 'rgba(255, 255, 255, 0.5)';
+      }
+
+      // Moves the particle based on its speed and reverses direction if it hits a wall.
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x > this.canvas.width || this.x < 0) this.speedX = -this.speedX;
+        if (this.y > this.canvas.height || this.y < 0) this.speedY = -this.speedY;
+      }
+
+      // Draws the particle as a circle on the canvas.
+      draw() {
+        this.ctx.fillStyle = this.color;
+        this.ctx.beginPath();
+        this.ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        this.ctx.fill();
+      }
+    }
+
+    let particles: Particle[] = [];
+
+    // Initializes the particles based on the canvas size.
+    const init = () => {
+      particles = [];
+      const numberOfParticles = (canvas.width * canvas.height) / 9000;
+      for (let i = 0; i < numberOfParticles; i++) {
+        particles.push(new Particle(canvas, ctx));
+      }
+    };
+
+    // The main animation loop that updates and draws all particles.
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+      });
+      requestAnimationFrame(animate);
+    };
+
+    // Handles resizing the canvas when the window size changes.
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      init();
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    animate();
+
+    // Cleans up the event listener when the component is removed.
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  // Position the canvas on top of the background image with a higher z-index.
+  return <canvas ref={canvasRef} className="particle-canvas"></canvas>;
+};
 const HomePage: React.FC = () => {
   const [ref1, isInView1] = useIntersectionObserver<HTMLElement>({ threshold: 0.1 });
   const [ref3, isInView3] = useIntersectionObserver<HTMLElement>({ threshold: 0.1 });
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="hero-section" id="home">
-        {/* The hero section now only contains a background image */}
+     <div className="app-container">
+      <style>
+        {`
+        .app-container {
+          position: relative;
+          width: 100vw;
+          height: 100vh;
+          overflow: hidden;
+          font-family: sans-serif;
+          background-color: #0c0a09;
+          color: #fff;
+        }
+
+        .hero-background {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 0;
+          background-size: cover;
+          background-position: center;
+        }
+
+        .particle-canvas {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 10;
+        }
+
+        .hero-section {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          padding: 1.5rem;
+        }
+        
+        .hero-content {
+          position: relative;
+          z-index: 20;
+        }
+
+        .hero-title {
+          font-size: 3rem;
+          font-weight: 700;
+          letter-spacing: -0.025em;
+          margin-bottom: 1rem;
+        }
+        
+        @media (min-width: 768px) {
+          .hero-title {
+            font-size: 4.5rem;
+          }
+        }
+
+        .hero-subtitle {
+          font-size: 1.125rem;
+          color: #e5e7eb;
+          max-width: 42rem;
+        }
+
+        @media (min-width: 768px) {
+          .hero-subtitle {
+            font-size: 1.25rem;
+          }
+        }
+
+        .other-content-section {
+          position: relative;
+          z-index: 20;
+          width: 100%;
+          height: 100vh;
+          background-color: #0c0a09;
+          padding: 1.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .other-content-title {
+          font-size: 2.25rem;
+          font-weight: 600;
+        }
+        `}
+      </style>
+
+      {/* Background image layer with a lower z-index */}
+      <div 
+        className="hero-background"
+        style={{ backgroundImage: "url('https://placehold.co/1920x1080/000000/FFFFFF?text=Hero+Image')" }}
+      ></div>
+
+      {/* The ParticleBackground component, now positioned on top of the image */}
+      <ParticleBackground />
+
+      {/* The Hero Section content, which sits on top of both layers */}
+      <section className="hero-section">
+        <div className="hero-content">
+             <div className="flex justify-center items-center py-8">
+      <audio controls>
+        <source src="/audio/music.mp3" type="audio/mp3" />
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+        </div>
       </section>
 
+      {/* A placeholder for other content on the page */}
+      <section className="other-content-section">
+        <h2 className="other-content-title">
+          Other Content Here
+        </h2>
+      </section>
+    </div>
       {/* Invitation Section */}
       <section className="invite-section" ref={ref1}>
         <div className={`invite-container ${isInView1 ? 'fade-in' : ''}`}>
@@ -344,63 +549,57 @@ const CountdownSection: React.FC = () => {
  */
 const PrenupGallery: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [ref, isInView] = useIntersectionObserver<HTMLElement>({
-    threshold: 0.1,
-  });
 
-  const galleryImages = Array.from(
-    { length: 20 },
-    (_, i) => `/prenup/prenup${i + 1}.jpeg`
-  );
+  // Replace with your own images
+  const images = Array.from({ length: 20 }, (_, i) => ({
+    thumb: `/prenup/prenup${i + 1}.jpeg`,
+    full: `/prenup/prenup${i + 1}.jpeg`,
+  }));
 
-  const openModal = (image: string) => setSelectedImage(image);
+  const openModal = (img: string) => setSelectedImage(img);
   const closeModal = () => setSelectedImage(null);
 
+  // Prevent body scroll when modal is open
   useEffect(() => {
     document.body.style.overflow = selectedImage ? "hidden" : "";
   }, [selectedImage]);
 
   return (
-    <section
-      className={`prenup-gallery-section ${isInView ? "fade-in-section" : ""}`}
-      ref={ref}
-      id="prenup-gallery"
-    >
-      <h2 className="page-title">Our Prenup Gallery</h2>
-      <p className="page-subtitle">
-        A collection of our favorite moments leading up to the big day.
+    <section className="new-gallery" id="prenup-gallery">
+      <h2 className="gallery-title">Captured Moments</h2>
+      <p className="gallery-subtitle">
+        Memories leading up to our special day.
       </p>
 
-      <div className="prenup-gallery">
-        {galleryImages.map((image, index) => (
+      <div className="masonry-grid">
+        {images.map((img, idx) => (
           <div
-            key={index}
-            className="gallery-item"
-            role="button"
-            tabIndex={0}
-            onClick={() => openModal(image)}
-            onKeyDown={(e) => e.key === "Enter" && openModal(image)}
+            key={idx}
+            className="masonry-item"
+            onClick={() => openModal(img.full)}
           >
             <img
-              src={image}
-              alt={`Prenup Photo ${index + 1}`}
-              className="gallery-image"
+              src={img.thumb}
+              alt={`Gallery ${idx + 1}`}
+              loading="lazy"
+              className="masonry-img"
             />
           </div>
         ))}
       </div>
 
+      {/* Modal */}
       {selectedImage &&
         createPortal(
           <div className="modal-overlay" onClick={closeModal}>
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <button className="modal-close-btn" onClick={closeModal}>
-                &times;
+            <div className="modal-body" onClick={(e) => e.stopPropagation()}>
+              <button className="modal-close" onClick={closeModal}>
+                ✕
               </button>
               <img
                 src={selectedImage}
-                alt="Enlarged Prenup Photo"
-                className="modal-image"
+                alt="Enlarged"
+                className="modal-photo"
               />
             </div>
           </div>,
@@ -409,6 +608,7 @@ const PrenupGallery: React.FC = () => {
     </section>
   );
 };
+
 
 
 const LocationPage: React.FC = () => (
@@ -461,13 +661,87 @@ const EntouragePage: React.FC = () => (
     <p>This page will introduce the wedding party.</p>
   </section>
 );
+const DresscodePage: React.FC = () => {
+  const [ref2, isInView] = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
+  const [gridRef2, isGridInView] = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
 
-const DresscodePage: React.FC = () => (
-  <section className="page-section" id="dresscode">
-    <h2 className="page-title">Dress Code</h2>
-    <p>Here you can inform guests about the suggested attire.</p>
-  </section>
-);
+  return (
+    <section className="page-section2" id="dresscode" ref={ref2}>
+      <div className="particles-container">
+        {Array.from({ length: 50 }).map((_, i) => (
+          <div
+            key={i}
+            className="particle"
+            style={{
+              width: `${Math.random() * 5 + 5}px`,
+              height: `${Math.random() * 5 + 5}px`,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100 + 100}vh`,
+              animationDelay: `-${Math.random() * 20}s`,
+              animationDuration: `${Math.random() * 15 + 15}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      <div className={`container fade-in-on-scroll ${isInView ? 'in-view' : ''}`}>
+        <h2 className="heading-main text-center">Dress Code</h2>
+        <p className="heading-sub text-center">
+          We kindly request your presence in semi-formal or formal attire.
+        </p>
+
+        <div
+          className={`image-grid fade-in-on-scroll ${isGridInView ? 'in-view' : ''}`}
+          ref={gridRef2}
+        >
+          <div className="image-card">
+            <img
+              src="https://placehold.co/600x800/E5A9A9/FFFFFF?text=Formal+Attire"
+              alt="Example of formal attire"
+            />
+          </div>
+          <div className="image-card">
+            <img
+              src="https://placehold.co/600x800/B2D8D8/000000?text=Semi-Formal+Attire"
+              alt="Example of semi-formal attire"
+            />
+          </div>
+          <div className="image-card">
+            <img
+              src="https://placehold.co/600x800/EAEAEA/333333?text=Evening+Wear"
+              alt="Example of evening wear"
+            />
+          </div>
+        </div>
+
+        <div className="text-center">
+          <h3 className="heading-secondary">Our Color Palette</h3>
+          <p className="heading-sub">
+            While not required, we encourage you to wear a color from our wedding palette to complement the theme.
+          </p>
+          <div className="color-palette-wrapper">
+            <div className="color-swatch-container">
+              <div className="color-swatch" style={{ backgroundColor: '#F8F6F4' }}></div>
+              <span className="color-label">Ivory</span>
+            </div>
+            <div className="color-swatch-container">
+              <div className="color-swatch" style={{ backgroundColor: '#A2C2C2' }}></div>
+              <span className="color-label">Sage</span>
+            </div>
+            <div className="color-swatch-container">
+              <div className="color-swatch" style={{ backgroundColor: '#D4B9A7' }}></div>
+              <span className="color-label">Dusty Rose</span>
+            </div>
+            <div className="color-swatch-container">
+              <div className="color-swatch" style={{ backgroundColor: '#8B4513' }}></div>
+              <span className="color-label">Chocolate</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const RsvpPage: React.FC = () => (
   <section className="page-section" id="rsvp">
