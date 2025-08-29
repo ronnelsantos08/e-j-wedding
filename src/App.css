@@ -311,7 +311,7 @@ body {
   position: relative;
   width: 100%;
   height: 100vh;
-  background-image: url('hero/hero.jpeg');
+  background-image: url('/hero/hero.jpg');
   background-size: cover;
   background-position: center;
 }
@@ -347,7 +347,7 @@ body {
 .invite-container {
   background: 
     linear-gradient(rgba(255, 255, 255, 0.54), rgba(0, 0, 0, 0.5)), /* dark overlay */
-    url('bg/invite-bg.jpg') center/cover no-repeat;
+    url('/bg/invite-bg.jpg') center/cover no-repeat;
   border-radius: 15px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   width: 80%;
