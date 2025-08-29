@@ -435,8 +435,7 @@ const styleSheet = `
   }
 
   .main-content {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 3840px;
   }
 
   .navbar {
