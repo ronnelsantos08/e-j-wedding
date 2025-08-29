@@ -1,0 +1,47 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&display=swap');
+
+/* Global reset and smooth scroll */
+* {
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+}
+
+html, body {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  font-weight: 400;
+  color: #3d2e2e;
+  background-color: #fff;
+  font-family: "Alumni Sans Pinstripe", sans-serif;
+}
+
+/* Headings */
+h1 {
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: clamp(.1rem, 4vw, 100rem); /* large, responsive */
+  line-height: 1.2;
+}
+
+h2 {
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: clamp(1.5rem, 2.2vw, 2.5rem); /* slightly smaller */
+  line-height: 1.3;
+}
+
+/* Links */
+a {
+  font-family: inherit; /* inherit from body */
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Paragraphs */
+p {
+  font-size: clamp(1rem, 1.2vw, 1.5rem);
+  line-height: 1.6;
+}
