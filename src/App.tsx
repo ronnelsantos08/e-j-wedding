@@ -242,7 +242,7 @@ const HomePage: React.FC = () => {
             {/* The floating heart decoration */}
             <div className="heart-decoration-container">
             <img
-          src="decorations/ring6.png"  // <-- path to your local image
+          src="/decorations/ring6.png"  // <-- path to your local image
           alt="Heart Decoration"
           className="heart-decoration"
         />
