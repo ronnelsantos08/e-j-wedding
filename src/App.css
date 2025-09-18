@@ -283,13 +283,12 @@ body {
 }
 
 .page-section {
-  min-height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 5vw, 4rem);
+  
 }
 
 .page-title {
@@ -658,7 +657,7 @@ body {
 }
 
 .modal-photo {
-  max-width: 100%;
+  max-width: 30vw;
   max-height: 100%;
   border-radius: 12px;
   object-fit: contain;
@@ -756,6 +755,9 @@ body {
     overflow: hidden;
     border-radius: 10px;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  .modal-photo {
+    max-width: 80vw;
   }
   
 }
@@ -1058,5 +1060,253 @@ body {
   100% {
     opacity: 0;
     transform: translateY(-100vh) scale(1);
+  }
+}
+
+/* General Page Styling */
+.page-section {
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+  font-family: 'Georgia', serif; /* Use an elegant serif font */
+  color: #333;
+  line-height: 1.6;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 3rem;
+  color: #5d5c61;
+  margin-bottom: 10px;
+  font-family: 'Playfair Display', serif; /* A more decorative font for the title */
+  font-weight: 700;
+}
+
+.page-description {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 40px;
+  font-style: italic;
+  color: #777;
+}
+
+/* Table and Layout Styling */
+.entourage-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.entourage-table {
+  width: 100%;
+  max-width: 450px;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.entourage-table tbody tr:nth-child(even) {
+  background-color: #f0f0f0;
+}
+
+.category-header h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: #5d5c61;
+  text-align: center;
+  padding: 15px 0;
+  margin: 0;
+}
+
+.entourage-table td {
+  padding: 12px 15px;
+  font-size: 1rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid #eee;
+  white-space: nowrap; /* Prevents long names from wrapping */
+}
+
+.entourage-table td.sponsor-col {
+  width: 50%;
+}
+
+.entourage-table td.sponsor-role-col,
+.entourage-table td.bearer-role-col {
+  font-weight: bold;
+  width: 30%;
+}
+
+/* Optional: Add a subtle animation on hover */
+.entourage-table tr:hover {
+  background-color: #e8e8e8;
+  transition: background-color 0.3s ease;
+}
+
+/* Optional: You can replace 'Georgia' and 'Playfair Display' with your
+   favorite elegant web fonts, like 'Lora', 'Cormorant Garamond', etc.,
+   by importing them from Google Fonts. */
+
+   /* RsvpPage.css */
+
+/* General page and typography styles */
+
+
+.page-title {
+  text-align: center;
+  font-size: 3.5rem;
+  color: #5b5b5b;
+  margin-bottom: 10px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.page-description {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 40px;
+  font-style: italic;
+  color: #7a7a7a;
+  font-size: 1.1rem;
+}
+
+/* Form container and fields */
+.rsvp-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.form-field {
+  margin-bottom: 25px;
+}
+
+.form-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #5b5b5b;
+  font-size: 1rem;
+}
+
+/* Input and textarea styling */
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-family: 'Cormorant Garamond', serif;
+  background-color: #fdfcfb;
+  transition: border-color 0.3s ease;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color: #c0a78b; /* Light gold on focus */
+  outline: none;
+}
+
+.form-textarea {
+  resize: vertical;
+}
+
+/* Radio button group */
+.radio-group {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.radio-input {
+  accent-color: #c0a78b;
+  transform: scale(1.2); /* Make radio buttons slightly larger */
+}
+
+/* Submit button */
+.submit-button {
+  width: 100%;
+  padding: 15px;
+  background-color: #c0a78b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: #a38a70;
+  transform: translateY(-2px);
+}
+
+.submit-button.submitting {
+  background-color: #dcdcdc;
+  cursor: not-allowed;
+  transform: translateY(0);
+}
+
+/* Status messages */
+.success-message {
+  color: #76947b;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.error-message {
+  color: #c95f5f;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.2rem;
+}
+
+.video-section {
+  text-align: center;
+  padding: 4rem 1rem;
+  width: 100%;
+  font-family: 'Playfair Display', serif;
+  color: white;
+}
+
+
+
+.video-wrapper {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+
+  /* Elegant neon purple border */
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.video-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .video-title {
+    font-size: 2rem;
+  }
+
+  .video-subtitle {
+    font-size: 1rem;
   }
 }

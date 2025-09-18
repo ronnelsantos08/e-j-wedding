@@ -458,9 +458,9 @@ const HomePage: React.FC = () => {
 
       {/* Prenup Gallery Section */}
       <PrenupGallery />
-
+      <VideoSection />
       {/* Location Section */}
-      <LocationPage />
+      <LocationSlider />
 
       {/* Dresscode Section */}
       <DresscodePage />
@@ -608,57 +608,612 @@ const PrenupGallery: React.FC = () => {
     </section>
   );
 };
+const VideoSection: React.FC = () => {
+  return (
+    <section className="video-section" id="video">
 
-
-
-const LocationPage: React.FC = () => (
-  <section className="page-section" id="location">
-  <div className="container-wrapper">
-      <div className="flex-container">
-          <div className="content-section">
-              <div className="image-container">
-                  <img src="https://placehold.co/1000x800/60a5fa/ffffff?text=Location+Image" alt="Event Location" />
-                  <a href="https://maps.app.goo.gl/YourGoogleMapsLink" target="_blank" className="maps-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
-                      </svg>
-                  </a>
-              </div>
-              <h1 className="section-title">Venue Name</h1>
-              <p className="section-address">123 Event Street, Cityville, State, 12345</p>
-              <a href="https://maps.app.goo.gl/YourGoogleMapsLink" target="_blank" className="maps-link">
-                  View on Google Maps
-              </a>
-          </div>
-
-          <div className="vertical-divider"></div>
-          
-          <div className="horizontal-divider"></div>
-
-          <div className="content-section">
-              <div className="image-container">
-                  <img src="https://placehold.co/1000x800/fca5a5/ffffff?text=Reception+Image" alt="Reception" />
-                  <a href="https://maps.app.goo.gl/AnotherGoogleMapsLink" target="_blank" className="maps-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
-                      </svg>
-                  </a>
-              </div>
-              <h1 className="section-title">Reception Hall</h1>
-              <p className="section-address">456 Party Blvd, Cityville, State, 12345</p>
-              <a href="https://maps.app.goo.gl/AnotherGoogleMapsLink" target="_blank" className="maps-link">
-                  View on Google Maps
-              </a>
-          </div>
+      <div className="video-wrapper">
+        <iframe
+          className="video-frame"
+          src="video/video.mp4" // 
+          title="Prenup Video"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
       </div>
-  </div>
-</section>
-);
+    </section>
+  );
+};
+
+
+
+const LocationSlider: React.FC = () => {
+  const cardTrackRef = useRef<HTMLDivElement>(null);
+  const fullscreenBgRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const textRef = useRef<HTMLParagraphElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  // Data for the slider. Using placeholders for images.
+  const sliderData = [
+    {
+      image: "/locations/location1.jpg",
+      title: "Wedding Ceremony",
+      text: "The beautiful ceremony will take place at sunset in the garden, with a view of the ocean."
+    },
+    {
+      image: "locations/location2.jpg",
+      title: "Reception Party",
+      text: "Join us for an evening of dinner, dancing, and celebration under the stars at the grand ballroom."
+    }
+  ];
+
+  useEffect(() => {
+    if (fullscreenBgRef.current && titleRef.current && textRef.current) {
+      fullscreenBgRef.current.style.backgroundImage = `url(${sliderData[activeIndex].image})`;
+      titleRef.current.innerText = sliderData[activeIndex].title;
+      textRef.current.innerText = sliderData[activeIndex].text;
+    }
+
+    const scrollToCard = () => {
+      if (cardTrackRef.current) {
+        // Calculate the width of a single card plus its margin.
+        const cardElement = cardTrackRef.current.querySelector('.card') as HTMLElement;
+        if (cardElement) {
+          const cardWidth = cardElement.offsetWidth + 16;
+          const scrollX = cardWidth * activeIndex;
+          cardTrackRef.current.scrollTo({ left: scrollX, behavior: "smooth" });
+        }
+      }
+    };
+    scrollToCard();
+  }, [activeIndex, sliderData]);
+
+  const handleNav = (direction: 'left' | 'right') => {
+    let newIndex = activeIndex;
+    if (direction === 'left') {
+      newIndex = (activeIndex - 1 + sliderData.length) % sliderData.length;
+    } else {
+      newIndex = (activeIndex + 1) % sliderData.length;
+    }
+    setActiveIndex(newIndex);
+  };
+
+  return (
+    <section className="page-section" id="location">
+      <style>
+        {`
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+        
+        .location-container {
+          position: relative;
+          min-width: 100vw;
+          min-height: 100vh;
+          overflow: hidden;
+          font-family: 'Playfair Display', serif;
+          color: white;
+          z-index: 30;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        
+          /* Elegant neon purple border */
+          border: 2px solid rgba(186, 85, 211, 0.7); /* soft purple border */
+          border-radius: 20px; /* smooth edges */
+          box-shadow: 0 0 15px rgba(186, 85, 211, 0.8), 
+                      0 0 30px rgba(186, 85, 211, 0.5),
+                      inset 0 0 10px rgba(186, 85, 211, 0.4);
+        }
+        
+
+        .fullscreen-background {
+          position: relative;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          background-size: cover;
+          background-position: center;
+          z-index: 1;
+          transition: background 0.8s ease;
+          display: flex;
+          align-items: center;
+          justify-content: normal;
+          text-align: center;
+          padding: 2rem;
+          padding-left: 100px;
+        }
+        .fullscreen-background:after {
+          content: "";
+          background: linear-gradient(2deg, black -21%, transparent);
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          z-index: 2;
+        }
+
+        .fullscreen-content {
+          z-index: 3;
+          display: flex;
+          align-items: center;
+          line-height: 1.4;
+        }
+        
+        .fullscreen-content h1 {
+          font-size: 2rem;
+          font-weight: 700;
+          color: white;
+          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+          line-height: 1;
+          flex-basis: 40%;
+          text-align: left;
+        }
+        
+        .text-and-map {
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          text-align: right;
+        }
+        
+        .text-and-map p {
+          font-size: 1.5rem;
+          color: white;
+          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .map-icon-container {
+            display: inline-block;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+        }
+
+        .map-icon-container:hover {
+            transform: scale(1.1);
+        }
+
+        .map-icon {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .slider-container {
+          position: relative;
+          top: -10rem;
+          left: 50%;
+          transform: translateX(-50%);
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          z-index: 10;
+        }
+        
+        .card-track {
+          display: flex;
+          gap: 1rem;
+          overflow-x: hidden;
+          max-width: 80vw;
+          transition: transform 0.5s ease;
+        }
+        
+        .card {
+          flex: 0 0 auto;
+          width: 200px;
+          height: 130px;
+          background-color: #222;
+          border-radius: 12px;
+          overflow: hidden;
+          position: relative;
+          cursor: pointer;
+          transform: scale(1);
+          transition: all 0.4s ease;
+          opacity: 0;
+          animation: fadeUp 0.8s ease forwards;
+        }
+
+        .card:first-child { animation-delay: 0s; }
+        .card:nth-child(2) { animation-delay: 0.1s; }
+        
+        .card img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        
+        .card-text {
+          position: relative;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          padding: 0.5rem;
+          background: rgba(0, 0, 0, 0.6);
+          font-size: 1rem;
+          text-align: center;
+        }
+        
+        .card.active {
+          transform: scale(1.1);
+          box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+          z-index: 1;
+        }
+        
+        .card.active img {
+          transition: all 0.3s ease;
+          transform: scale(1.5);
+        }
+        
+        .card.active .card-text {
+          display: none;
+        }
+        
+        .nav-btn {
+          background: transparent;
+          border: none;
+          color: white;
+          font-size: 2rem;
+          cursor: pointer;
+          transition: transform 0.2s ease;
+        }
+        
+        .nav-btn:hover {
+          transform: scale(1.2);
+        }
+        
+        @keyframes fadeUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        /* Base font scaling for responsiveness */
+html {
+  font-size: 16px; /* desktop default */
+}
+
+@media (max-width: 1200px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 992px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+/* Container adjustments */
+.location-container {
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+/* Background content */
+.fullscreen-background {
+  padding: 1.5rem;
+  padding-left: 2rem;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: center;
+}
+
+.fullscreen-content {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.fullscreen-content h1 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  text-align: center;
+  flex-basis: auto;
+}
+
+.text-and-map {
+  align-items: center;
+  text-align: center;
+}
+
+.text-and-map p {
+  font-size: clamp(1rem, 3vw, 1.5rem);
+}
+
+/* Map Icon */
+.map-icon {
+  width: clamp(30px, 6vw, 40px);
+  height: clamp(30px, 6vw, 40px);
+}
+
+/* Slider container */
+.slider-container {
+  top: -5rem;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.card-track {
+  max-width: 90vw;
+  gap: 0.5rem;
+}
+
+.card {
+  width: clamp(140px, 40vw, 200px);
+  height: clamp(90px, 30vw, 130px);
+}
+
+.card-text {
+  font-size: clamp(0.8rem, 2.5vw, 1rem);
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .fullscreen-background {
+    padding-left: 1rem;
+  }
+
+  .slider-container {
+    top: -3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .slider-container {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .nav-btn {
+    font-size: 1.5rem;
+  }
+
+  .card {
+    width: 80vw;
+    height: 150px;
+  }
+}
+
+        `}
+      </style>
+      
+      <div ref={fullscreenBgRef} className="fullscreen-background" id="fullscreen-bg">
+        <div className="fullscreen-content">
+          <h1 ref={titleRef}></h1>
+          <div className="text-and-map">
+            <p ref={textRef}></p>
+            <a 
+              href="https://maps.app.goo.gl/354n28BvB9gR5d3P6" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="map-icon-container"
+              aria-label="View on Google Maps"
+            >
+              <img src="/locations/mapicon.png" alt="Google Maps icon" className="map-icon" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div className="slider-container">
+        <button className="nav-btn left" onClick={() => handleNav('left')} aria-label="Scroll Left">
+          <i data-lucide="chevron-left">{'<'}</i>
+        </button>
+
+        <div className="card-track" ref={cardTrackRef}>
+          {sliderData.map((item, index) => (
+            <div
+              key={index}
+              className={`card ${index === activeIndex ? 'active' : ''}`}
+              onClick={() => setActiveIndex(index)}
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <img src={item.image} alt={item.title} />
+              <div className="card-text">{item.title}</div>
+            </div>
+          ))}
+        </div>
+
+        <button className="nav-btn right" onClick={() => handleNav('right')} aria-label="Scroll Right">
+          <i data-lucide="chevron-right">{'>'}</i>
+        </button>
+      </div>
+    </section>
+  );
+};
+
+// Define the data structure as before
+const entourageData = {
+  parentsOfTheGroom: [
+    'ERMINIO GONZALES OLIVAR',
+    'ELENITA GONZALES OLIVAR',
+  ],
+  parentsOfTheBride: [
+    'ALEX DIMAPILIS MOJICA',
+    'MA. ALICE MOJICA DOMINGO',
+  ],
+  principalSponsors: [
+    ['OSCAR OLIVAR JR.', 'LOIDA OLIVAR'],
+    ['AQUINO OLIVAR', 'MARY GRACE MERCADO'],
+    ['ARWIN DEMILLO', 'ALELI DEMILLO'],
+    ['ARGEL JOSEPH MOJICA', 'ABIGAIL LOURDES MOJICA'],
+    ['MICHAEL JOHN MONTENEGRO', 'MA. ANGELICA MONTENEGRO'],
+    ['APOLO ALCAZAR', 'ELENA ALCAZAR'],
+    ['NORBELL DOMINGO', 'MA. VICTORIA CORTEZ'],
+    ['JAY VILLANUEVA', 'MYLENE VILLANUEVA'],
+    ['STEPHEN CHARLES KEPPLER', 'MARISSA ASITOGUE'],
+    ['CHRISTOPHER GARCIA', 'LOIDA GARCIA'],
+    ['HON. CELSO DE CASTRO', 'MARIAN VIDALLO'],
+    ['ENGR. WILLIAM REYES', 'HON. LEONOR REYES'],
+    ['RIZALINO CRYSTAL', 'DEM CRYSTAL'],
+    ['GEOK HEE TERENCE CHUA', 'LORELEI CHUA'],
+    ['GENEROSO BUNYI', 'OLIVIA BUNYI'],
+  ],
+  secondarySponsors: [
+    { role: 'VEIL', names: ['RALPH MARON EDBERT DOMINGO', 'DANICA LANDICHO'] },
+    { role: 'CANDLE', names: ['JOHN LAURENCE OLIVAR', 'CARLA OPINION'] },
+    { role: 'CORD', names: ['ROVIN JOHN SALAUM', 'MIL ANN ELLA NOZON'] },
+  ],
+  bestMan: 'MARC GIAN VILLANUEVA',
+  groomsmen: [
+    'JUDE ANDREW DE GRANO',
+    'JETHRO AREVALO',
+    'JOHN EDRIAN LEGASPI',
+    'LESTER TORDECILLA',
+    'KIM XAVIER LABAGALA',
+    'KHRYZS ANDREW ALIPIO',
+    'JEFFERSON ROSALES',
+    'KRISTIAN JAY RAMOS',
+  ],
+  maidOfHonor: 'MIKHAJOY MANALO',
+  bridesmaids: [
+    'DIANNE DE GRANO',
+    'LEAH MAE CUADRA',
+    'JEAN KLAIRE VISCO',
+    'MARICEL BACOS',
+    'MILCA DECENA',
+    'QUEEN ANNACELLE REOSA',
+    'KORINE JADE AMBAT',
+    'ANGELYN GUAB',
+  ],
+  bearers: [
+    { role: 'RING BEARER', name: 'JOHN LAURIEL OLIVAR' },
+    { role: 'BIBLE BEARER', name: 'ALWYN ISAAC FABIAN DEMILLO' },
+    { role: 'COIN BEARER', name: 'JOHN LOURVINCE OLIVAR' },
+  ],
+  flowerGirls: [
+    'AIOFE DENISE ANGELINE PEJI',
+    'BETINA MAE MERCADO',
+    'YLLOIDA JEAN OLIVAR',
+    'YLLOIDA JADE OLIVAR',
+  ],
+};
 
 const EntouragePage: React.FC = () => (
   <section className="page-section">
-    <h2 className="page-title">Entourage</h2>
-    <p>This page will introduce the wedding party.</p>
+    <h2 className="page-title">The Wedding Entourage</h2>
+    <p className="page-description">
+      We are so grateful for the love and support of these amazing people who
+      will be standing by our side on our special day.
+    </p>
+
+    <div className="entourage-container">
+      {/* Parents Section */}
+      <table className="entourage-table">
+        <tbody>
+          <tr>
+            <td colSpan={2} className="category-header"><h3>Parents of the Groom</h3></td>
+          </tr>
+          {entourageData.parentsOfTheGroom.map((name, index) => (
+            <tr key={`groom-parent-${index}`}><td colSpan={2}>{name}</td></tr>
+          ))}
+          <tr>
+            <td colSpan={2} className="category-header"><h3>Parents of the Bride</h3></td>
+          </tr>
+          {entourageData.parentsOfTheBride.map((name, index) => (
+            <tr key={`bride-parent-${index}`}><td colSpan={2}>{name}</td></tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* Principal Sponsors Section */}
+      <table className="entourage-table">
+        <tbody>
+          <tr>
+            <td colSpan={2} className="category-header"><h3>Principal Sponsors</h3></td>
+          </tr>
+          {entourageData.principalSponsors.map((sponsor, index) => (
+            <tr key={`principal-sponsor-${index}`}>
+              <td className="sponsor-col">{sponsor[0]}</td>
+              <td className="sponsor-col">{sponsor[1]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* Secondary Sponsors Section */}
+      <table className="entourage-table">
+        <tbody>
+          <tr>
+            <td colSpan={2} className="category-header"><h3>Secondary Sponsors</h3></td>
+          </tr>
+          {entourageData.secondarySponsors.map((sponsor, index) => (
+            <tr key={`secondary-sponsor-${index}`}>
+              <td className="sponsor-role-col">{sponsor.role}:</td>
+              <td className="sponsor-col">{sponsor.names[0]} & {sponsor.names[1]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* Wedding Party Section */}
+      <table className="entourage-table">
+        <tbody>
+          <tr>
+            <td colSpan={2} className="category-header"><h3>Best Man</h3></td>
+          </tr>
+          <tr><td colSpan={2}>{entourageData.bestMan}</td></tr>
+          <tr>
+            <td colSpan={2} className="category-header"><h3>Groomsmen</h3></td>
+          </tr>
+          {entourageData.groomsmen.map((name, index) => (
+            <tr key={`groomsmen-${index}`}><td colSpan={2}>{name}</td></tr>
+          ))}
+          <tr>
+            <td colSpan={2} className="category-header"><h3>Maid of Honor</h3></td>
+          </tr>
+          <tr><td colSpan={2}>{entourageData.maidOfHonor}</td></tr>
+          <tr>
+            <td colSpan={2} className="category-header"><h3>Bridesmaids</h3></td>
+          </tr>
+          {entourageData.bridesmaids.map((name, index) => (
+            <tr key={`bridesmaid-${index}`}><td colSpan={2}>{name}</td></tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* Bearers & Flower Girls Section */}
+      <table className="entourage-table">
+        <tbody>
+          <tr>
+            <td colSpan={2} className="category-header"><h3>Bearers</h3></td>
+          </tr>
+          {entourageData.bearers.map((bearer, index) => (
+            <tr key={`bearer-${index}`}>
+              <td className="bearer-role-col">{bearer.role}:</td>
+              <td className="bearer-col">{bearer.name}</td>
+            </tr>
+          ))}
+          <tr>
+            <td colSpan={2} className="category-header"><h3>Flower Girls</h3></td>
+          </tr>
+          {entourageData.flowerGirls.map((name, index) => (
+            <tr key={`flowergirl-${index}`}><td colSpan={2}>{name}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   </section>
 );
 const DresscodePage: React.FC = () => {
@@ -743,12 +1298,174 @@ const DresscodePage: React.FC = () => {
   );
 };
 
-const RsvpPage: React.FC = () => (
-  <section className="page-section" id="rsvp">
-    <h2 className="page-title">RSVP</h2>
-    <p>This will be the RSVP form for guests.</p>
-  </section>
-);
+const RsvpPage: React.FC = () => {
+  const [name, setName] = useState('');
+  const [contact, setContact] = useState('');
+  const [isAttending, setIsAttending] = useState(true);
+  const [guests, setGuests] = useState(1);
+  const [message, setMessage] = useState('');
+  const [submissionStatus, setSubmissionStatus] = useState<
+    'idle' | 'submitting' | 'success' | 'error'
+  >('idle');
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setSubmissionStatus('submitting');
+
+    const formData = new FormData();
+
+    // ✅ Use your form’s entry IDs
+    formData.append('entry.417451165', name); // Full Name
+    formData.append('entry.1713735447', contact); // Contact Number
+    formData.append('entry.1349849489', isAttending ? 'Yes' : 'No'); // Attending
+    formData.append('entry.744453682', guests.toString()); // Guests
+    formData.append('entry.383237546', message); // Message
+
+    try {
+      await fetch(
+        'https://docs.google.com/forms/d/e/1FAIpQLScTiuZpbmWNOG_h97iE4OrcXgUB3PJ-segRZitRVvEv9yLqww/formResponse',
+        {
+          method: 'POST',
+          mode: 'no-cors',
+          body: formData,
+        }
+      );
+
+      setSubmissionStatus('success');
+      setName('');
+      setContact('');
+      setGuests(1);
+      setIsAttending(true);
+      setMessage('');
+    } catch (error) {
+      console.error('RSVP submission failed:', error);
+      setSubmissionStatus('error');
+    }
+  };
+
+  return (
+    <section className="page-section" id="rsvp">
+      <h2 className="page-title">RSVP</h2>
+      <p className="page-description">
+        Please let us know if you can join us by filling out the form below.
+      </p>
+
+      <form onSubmit={handleSubmit} className="rsvp-form">
+        {/* Full Name */}
+        <div className="form-field">
+          <label htmlFor="name" className="form-label">Full Name</label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            className="form-input"
+          />
+        </div>
+
+        {/* Contact Number */}
+        <div className="form-field">
+          <label htmlFor="contact" className="form-label">Contact Number</label>
+          <input
+            type="tel"
+            id="contact"
+            value={contact}
+            onChange={(e) => setContact(e.target.value)}
+            required
+            className="form-input"
+          />
+        </div>
+
+        {/* Attending */}
+        <div className="form-field">
+          <label className="form-label">Will you be attending?</label>
+          <div className="radio-group">
+            <label>
+              <input
+                type="radio"
+                name="attending"
+                value="yes"
+                checked={isAttending === true}
+                onChange={() => setIsAttending(true)}
+                className="radio-input"
+              />{' '}
+              Yes
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="attending"
+                value="no"
+                checked={isAttending === false}
+                onChange={() => setIsAttending(false)}
+                className="radio-input"
+              />{' '}
+              No
+            </label>
+          </div>
+        </div>
+
+        {/* Guests */}
+        {isAttending && (
+          <div className="form-field">
+            <label htmlFor="guests" className="form-label">
+              How many guests will be attending with you?
+            </label>
+            <select
+              id="guests"
+              value={guests}
+              onChange={(e) => setGuests(Number(e.target.value))}
+              required={isAttending}
+              className="form-input"
+            >
+              {[...Array(10).keys()].map((num) => (
+                <option key={num + 1} value={num + 1}>
+                  {num + 1}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+
+        {/* Message */}
+        <div className="form-field">
+          <label htmlFor="message" className="form-label">
+            Message for the couple (optional)
+          </label>
+          <textarea
+            id="message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            rows={4}
+            className="form-textarea"
+          />
+        </div>
+
+        <button
+          type="submit"
+          disabled={submissionStatus === 'submitting'}
+          className={`submit-button ${
+            submissionStatus === 'submitting' ? 'submitting' : ''
+          }`}
+        >
+          {submissionStatus === 'submitting' ? 'Submitting...' : 'Submit RSVP'}
+        </button>
+
+        {submissionStatus === 'success' && (
+          <p className="success-message">
+            Thank you for your RSVP! We can't wait to celebrate with you.
+          </p>
+        )}
+        {submissionStatus === 'error' && (
+          <p className="error-message">
+            Something went wrong. Please try again.
+          </p>
+        )}
+      </form>
+    </section>
+  );
+};
 
 // We combine the components for a single export
 export default () => (
