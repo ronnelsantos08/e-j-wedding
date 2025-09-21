@@ -467,6 +467,8 @@ const HomePage: React.FC = () => {
 
       {/* RSVP Section */}
       <RsvpPage />
+         {/* Footer Section */}
+         <Footer />
     </>
   );
 };
@@ -611,503 +613,143 @@ const PrenupGallery: React.FC = () => {
 const VideoSection: React.FC = () => {
   return (
     <section className="video-section" id="video">
-
-      <div className="video-wrapper">
-        <iframe
-          className="video-frame"
-          src="video/video.mp4" // 
-          title="Prenup Video"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
-      </div>
-    </section>
+    <div className="video-wrapper">
+      <video 
+        className="video-frame" 
+        controls 
+        poster="/prenup/prenup1.jpeg" // your thumbnail image
+      >
+        <source src="/video/video.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </section>
   );
 };
 
 
-
 const LocationSlider: React.FC = () => {
-  const cardTrackRef = useRef<HTMLDivElement>(null);
-  const fullscreenBgRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const textRef = useRef<HTMLParagraphElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  // Data for the slider. Using placeholders for images.
-  const sliderData = [
-    {
-      image: "/locations/location1.jpg",
-      title: "Wedding Ceremony",
-      text: "The beautiful ceremony will take place at sunset in the garden, with a view of the ocean."
-    },
-    {
-      image: "locations/location2.jpg",
-      title: "Reception Party",
-      text: "Join us for an evening of dinner, dancing, and celebration under the stars at the grand ballroom."
-    }
-  ];
-
-  useEffect(() => {
-    if (fullscreenBgRef.current && titleRef.current && textRef.current) {
-      fullscreenBgRef.current.style.backgroundImage = `url(${sliderData[activeIndex].image})`;
-      titleRef.current.innerText = sliderData[activeIndex].title;
-      textRef.current.innerText = sliderData[activeIndex].text;
-    }
-
-    const scrollToCard = () => {
-      if (cardTrackRef.current) {
-        // Calculate the width of a single card plus its margin.
-        const cardElement = cardTrackRef.current.querySelector('.card') as HTMLElement;
-        if (cardElement) {
-          const cardWidth = cardElement.offsetWidth + 16;
-          const scrollX = cardWidth * activeIndex;
-          cardTrackRef.current.scrollTo({ left: scrollX, behavior: "smooth" });
-        }
-      }
-    };
-    scrollToCard();
-  }, [activeIndex, sliderData]);
-
-  const handleNav = (direction: 'left' | 'right') => {
-    let newIndex = activeIndex;
-    if (direction === 'left') {
-      newIndex = (activeIndex - 1 + sliderData.length) % sliderData.length;
-    } else {
-      newIndex = (activeIndex + 1) % sliderData.length;
-    }
-    setActiveIndex(newIndex);
-  };
-
   return (
-    <section className="page-section" id="location">
-      <style>
-        {`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
-        
-        .location-container {
-          position: relative;
-          min-width: 100vw;
-          min-height: 100vh;
-          overflow: hidden;
-          font-family: 'Playfair Display', serif;
-          color: white;
-          z-index: 30;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-        
-          /* Elegant neon purple border */
-          border: 2px solid rgba(186, 85, 211, 0.7); /* soft purple border */
-          border-radius: 20px; /* smooth edges */
-          box-shadow: 0 0 15px rgba(186, 85, 211, 0.8), 
-                      0 0 30px rgba(186, 85, 211, 0.5),
-                      inset 0 0 10px rgba(186, 85, 211, 0.4);
-        }
-        
+    <section className="location-section" id="location">
+      <div className="location-container">
+        <h2 className="location-title">Our Wedding Venues</h2>
+        <p className="location-description">
+          Join us as we celebrate our union at these beautiful locations.
+        </p>
 
-        .fullscreen-background {
-          position: relative;
-          top: 0;
-          left: 0;
-          width: 100vw;
-          height: 100vh;
-          background-size: cover;
-          background-position: center;
-          z-index: 1;
-          transition: background 0.8s ease;
-          display: flex;
-          align-items: center;
-          justify-content: normal;
-          text-align: center;
-          padding: 2rem;
-          padding-left: 100px;
-        }
-        .fullscreen-background:after {
-          content: "";
-          background: linear-gradient(2deg, black -21%, transparent);
-          position: absolute;
-          left: 0;
-          right: 0;
-          top: 0;
-          bottom: 0;
-          z-index: 2;
-        }
-
-        .fullscreen-content {
-          z-index: 3;
-          display: flex;
-          align-items: center;
-          line-height: 1.4;
-        }
-        
-        .fullscreen-content h1 {
-          font-size: 2rem;
-          font-weight: 700;
-          color: white;
-          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
-          line-height: 1;
-          flex-basis: 40%;
-          text-align: left;
-        }
-        
-        .text-and-map {
-          flex-grow: 1;
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-          text-align: right;
-        }
-        
-        .text-and-map p {
-          font-size: 1.5rem;
-          color: white;
-          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
-        }
-
-        .map-icon-container {
-            display: inline-block;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
-        }
-
-        .map-icon-container:hover {
-            transform: scale(1.1);
-        }
-
-        .map-icon {
-            width: 40px;
-            height: 40px;
-        }
-        
-        .slider-container {
-          position: relative;
-          top: -10rem;
-          left: 50%;
-          transform: translateX(-50%);
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          z-index: 10;
-        }
-        
-        .card-track {
-          display: flex;
-          gap: 1rem;
-          overflow-x: hidden;
-          max-width: 80vw;
-          transition: transform 0.5s ease;
-        }
-        
-        .card {
-          flex: 0 0 auto;
-          width: 200px;
-          height: 130px;
-          background-color: #222;
-          border-radius: 12px;
-          overflow: hidden;
-          position: relative;
-          cursor: pointer;
-          transform: scale(1);
-          transition: all 0.4s ease;
-          opacity: 0;
-          animation: fadeUp 0.8s ease forwards;
-        }
-
-        .card:first-child { animation-delay: 0s; }
-        .card:nth-child(2) { animation-delay: 0.1s; }
-        
-        .card img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-        
-        .card-text {
-          position: relative;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          padding: 0.5rem;
-          background: rgba(0, 0, 0, 0.6);
-          font-size: 1rem;
-          text-align: center;
-        }
-        
-        .card.active {
-          transform: scale(1.1);
-          box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
-          z-index: 1;
-        }
-        
-        .card.active img {
-          transition: all 0.3s ease;
-          transform: scale(1.5);
-        }
-        
-        .card.active .card-text {
-          display: none;
-        }
-        
-        .nav-btn {
-          background: transparent;
-          border: none;
-          color: white;
-          font-size: 2rem;
-          cursor: pointer;
-          transition: transform 0.2s ease;
-        }
-        
-        .nav-btn:hover {
-          transform: scale(1.2);
-        }
-        
-        @keyframes fadeUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        /* Base font scaling for responsiveness */
-html {
-  font-size: 16px; /* desktop default */
-}
-
-@media (max-width: 1200px) {
-  html {
-    font-size: 15px;
-  }
-}
-
-@media (max-width: 992px) {
-  html {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 768px) {
-  html {
-    font-size: 13px;
-  }
-}
-
-@media (max-width: 480px) {
-  html {
-    font-size: 12px;
-  }
-}
-
-/* Container adjustments */
-.location-container {
-  border-radius: 12px;
-  padding: 1rem;
-}
-
-/* Background content */
-.fullscreen-background {
-  padding: 1.5rem;
-  padding-left: 2rem;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  text-align: center;
-}
-
-.fullscreen-content {
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
-.fullscreen-content h1 {
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
-  text-align: center;
-  flex-basis: auto;
-}
-
-.text-and-map {
-  align-items: center;
-  text-align: center;
-}
-
-.text-and-map p {
-  font-size: clamp(1rem, 3vw, 1.5rem);
-}
-
-/* Map Icon */
-.map-icon {
-  width: clamp(30px, 6vw, 40px);
-  height: clamp(30px, 6vw, 40px);
-}
-
-/* Slider container */
-.slider-container {
-  top: -5rem;
-  flex-direction: row;
-  gap: 0.5rem;
-}
-
-.card-track {
-  max-width: 90vw;
-  gap: 0.5rem;
-}
-
-.card {
-  width: clamp(140px, 40vw, 200px);
-  height: clamp(90px, 30vw, 130px);
-}
-
-.card-text {
-  font-size: clamp(0.8rem, 2.5vw, 1rem);
-}
-
-/* Responsive tweaks */
-@media (max-width: 768px) {
-  .fullscreen-background {
-    padding-left: 1rem;
-  }
-
-  .slider-container {
-    top: -3rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .slider-container {
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-
-  .nav-btn {
-    font-size: 1.5rem;
-  }
-
-  .card {
-    width: 80vw;
-    height: 150px;
-  }
-}
-
-        `}
-      </style>
-      
-      <div ref={fullscreenBgRef} className="fullscreen-background" id="fullscreen-bg">
-        <div className="fullscreen-content">
-          <h1 ref={titleRef}></h1>
-          <div className="text-and-map">
-            <p ref={textRef}></p>
-            <a 
-              href="https://maps.app.goo.gl/354n28BvB9gR5d3P6" 
-              target="_blank" 
+        <div className="location-grid">
+          {/* Ceremony Card */}
+          <div className="location-card">
+            <h3 className="venue-type">Ceremony</h3>
+            <img
+              src="locations/Church-of-Barasoain.jpg"
+              alt="Church of Barasoain"
+              className="venue-image"
+            />
+            <h4 className="venue-name">Church of Barasoain</h4>
+            <p className="venue-address">
+              Paseo del Congreso, Malolos, 3000 Bulacan, Philippines
+            </p>
+            <a
+              href="https://maps.app.goo.gl/EgE3KXnctAcq357w8"
+              target="_blank"
               rel="noopener noreferrer"
-              className="map-icon-container"
-              aria-label="View on Google Maps"
+              className="map-button"
             >
-              <img src="/locations/mapicon.png" alt="Google Maps icon" className="map-icon" />
+              View on Google Maps
+            </a>
+          </div>
+
+          {/* Reception Card */}
+          <div className="location-card">
+            <h3 className="venue-type">Reception</h3>
+            <img
+              src="locations/San-Pablo-MPC-Pavilion.jpg"
+              alt="San Pablo MPC Pavilion"
+              className="venue-image"
+            />
+            <h4 className="venue-name">San Pablo MPC Pavilion</h4>
+            <p className="venue-address">
+              A. Mabini Street, San Pablo City, 4000 Laguna, Philippines
+            </p>
+            <a
+              href="https://maps.app.goo.gl/hd25za6MM9QpbqQu9"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="map-button"
+            >
+              View on Google Maps
             </a>
           </div>
         </div>
       </div>
-
-      <div className="slider-container">
-        <button className="nav-btn left" onClick={() => handleNav('left')} aria-label="Scroll Left">
-          <i data-lucide="chevron-left">{'<'}</i>
-        </button>
-
-        <div className="card-track" ref={cardTrackRef}>
-          {sliderData.map((item, index) => (
-            <div
-              key={index}
-              className={`card ${index === activeIndex ? 'active' : ''}`}
-              onClick={() => setActiveIndex(index)}
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <img src={item.image} alt={item.title} />
-              <div className="card-text">{item.title}</div>
-            </div>
-          ))}
-        </div>
-
-        <button className="nav-btn right" onClick={() => handleNav('right')} aria-label="Scroll Right">
-          <i data-lucide="chevron-right">{'>'}</i>
-        </button>
-      </div>
     </section>
   );
 };
 
-// Define the data structure as before
+// Define the updated data structure
 const entourageData = {
   parentsOfTheGroom: [
-    'ERMINIO GONZALES OLIVAR',
-    'ELENITA GONZALES OLIVAR',
+    "Venancio Baronda",
+    "Eva Baronda",
   ],
   parentsOfTheBride: [
-    'ALEX DIMAPILIS MOJICA',
-    'MA. ALICE MOJICA DOMINGO',
+    "Eutiquio Abrio, Jr (+)",
+    "Ma. Victoria Abrio",
   ],
-  principalSponsors: [
-    ['OSCAR OLIVAR JR.', 'LOIDA OLIVAR'],
-    ['AQUINO OLIVAR', 'MARY GRACE MERCADO'],
-    ['ARWIN DEMILLO', 'ALELI DEMILLO'],
-    ['ARGEL JOSEPH MOJICA', 'ABIGAIL LOURDES MOJICA'],
-    ['MICHAEL JOHN MONTENEGRO', 'MA. ANGELICA MONTENEGRO'],
-    ['APOLO ALCAZAR', 'ELENA ALCAZAR'],
-    ['NORBELL DOMINGO', 'MA. VICTORIA CORTEZ'],
-    ['JAY VILLANUEVA', 'MYLENE VILLANUEVA'],
-    ['STEPHEN CHARLES KEPPLER', 'MARISSA ASITOGUE'],
-    ['CHRISTOPHER GARCIA', 'LOIDA GARCIA'],
-    ['HON. CELSO DE CASTRO', 'MARIAN VIDALLO'],
-    ['ENGR. WILLIAM REYES', 'HON. LEONOR REYES'],
-    ['RIZALINO CRYSTAL', 'DEM CRYSTAL'],
-    ['GEOK HEE TERENCE CHUA', 'LORELEI CHUA'],
-    ['GENEROSO BUNYI', 'OLIVIA BUNYI'],
+  principalSponsorsMr: [
+    "Virgilio Abrio",
+    "Engr. Domingo Relao",
+    "Engr. Matias Juan",
+    "Alvin Patnon",
+    "Alberto Pineda",
+    "Alvin Lauderes",
+    "Dante Lauderes",
+    "Manny Lauderes",
+  ],
+  principalSponsorsMrs: [
+    "Mila Abrio",
+    "Erlinda Abrio-Relao",
+    "Glenda Juan",
+    "Antonia Patnon",
+    "Haide Pineda",
+    "Mary Rose Lauderes",
+    "Gerlie Lauderes",
+    "Julieta Capili",
+  ],
+  bestMan: "Dexon Baronda",
+  matronOfHonor: "Patricia May Patnon",
+  maidOfHonor: "Janelle Ericka Abrio",
+  bridesmaids: [
+    "Rizalyn Bristol",
+    "Camille Lauderes",
+    "Nicole Ann Aczon",
+    "Anna May Allapitan",
+    "Jonesa Lauderes",
+    "Shane Abrio",
+    "Shena Abrio",
+  ],
+  groomsmen: [
+    "John Mark Abrio",
+    "Vien Bronson Baronda",
+    "Lloyd Lauderes",
+    "Leonard Lauderes",
+    "Kenneth Lauderes",
   ],
   secondarySponsors: [
-    { role: 'VEIL', names: ['RALPH MARON EDBERT DOMINGO', 'DANICA LANDICHO'] },
-    { role: 'CANDLE', names: ['JOHN LAURENCE OLIVAR', 'CARLA OPINION'] },
-    { role: 'CORD', names: ['ROVIN JOHN SALAUM', 'MIL ANN ELLA NOZON'] },
-  ],
-  bestMan: 'MARC GIAN VILLANUEVA',
-  groomsmen: [
-    'JUDE ANDREW DE GRANO',
-    'JETHRO AREVALO',
-    'JOHN EDRIAN LEGASPI',
-    'LESTER TORDECILLA',
-    'KIM XAVIER LABAGALA',
-    'KHRYZS ANDREW ALIPIO',
-    'JEFFERSON ROSALES',
-    'KRISTIAN JAY RAMOS',
-  ],
-  maidOfHonor: 'MIKHAJOY MANALO',
-  bridesmaids: [
-    'DIANNE DE GRANO',
-    'LEAH MAE CUADRA',
-    'JEAN KLAIRE VISCO',
-    'MARICEL BACOS',
-    'MILCA DECENA',
-    'QUEEN ANNACELLE REOSA',
-    'KORINE JADE AMBAT',
-    'ANGELYN GUAB',
+    { role: "Candle", names: ["Rhodalyn Baronda", "David Paul Relao"] },
+    { role: "Veil", names: ["Lendy Bagalayos", "Rossco Bagalayos"] },
+    { role: "Cord", names: ["Jessica Anastacio", "Melson Baronda"] },
   ],
   bearers: [
-    { role: 'RING BEARER', name: 'JOHN LAURIEL OLIVAR' },
-    { role: 'BIBLE BEARER', name: 'ALWYN ISAAC FABIAN DEMILLO' },
-    { role: 'COIN BEARER', name: 'JOHN LOURVINCE OLIVAR' },
+    { role: "Ring Bearer", name: "Kody Cadampog" },
+    { role: "Arrhae Bearer", name: "Thirdy Patnon" },
+    { role: "Bible Bearer", name: "Kervin Cadampog" },
   ],
   flowerGirls: [
-    'AIOFE DENISE ANGELINE PEJI',
-    'BETINA MAE MERCADO',
-    'YLLOIDA JEAN OLIVAR',
-    'YLLOIDA JADE OLIVAR',
+    "Maheesha Cadampog",
   ],
+  littleBride: "NA",
 };
 
 const EntouragePage: React.FC = () => (
@@ -1141,28 +783,16 @@ const EntouragePage: React.FC = () => (
       <table className="entourage-table">
         <tbody>
           <tr>
-            <td colSpan={2} className="category-header"><h3>Principal Sponsors</h3></td>
+            <td colSpan={2} className="category-header"><h3>Principal Sponsors (Mr)</h3></td>
           </tr>
-          {entourageData.principalSponsors.map((sponsor, index) => (
-            <tr key={`principal-sponsor-${index}`}>
-              <td className="sponsor-col">{sponsor[0]}</td>
-              <td className="sponsor-col">{sponsor[1]}</td>
-            </tr>
+          {entourageData.principalSponsorsMr.map((name, index) => (
+            <tr key={`principal-sponsor-mr-${index}`}><td colSpan={2}>{name}</td></tr>
           ))}
-        </tbody>
-      </table>
-
-      {/* Secondary Sponsors Section */}
-      <table className="entourage-table">
-        <tbody>
           <tr>
-            <td colSpan={2} className="category-header"><h3>Secondary Sponsors</h3></td>
+            <td colSpan={2} className="category-header"><h3>Principal Sponsors (Mrs/Ms)</h3></td>
           </tr>
-          {entourageData.secondarySponsors.map((sponsor, index) => (
-            <tr key={`secondary-sponsor-${index}`}>
-              <td className="sponsor-role-col">{sponsor.role}:</td>
-              <td className="sponsor-col">{sponsor.names[0]} & {sponsor.names[1]}</td>
-            </tr>
+          {entourageData.principalSponsorsMrs.map((name, index) => (
+            <tr key={`principal-sponsor-mrs-${index}`}><td colSpan={2}>{name}</td></tr>
           ))}
         </tbody>
       </table>
@@ -1175,11 +805,9 @@ const EntouragePage: React.FC = () => (
           </tr>
           <tr><td colSpan={2}>{entourageData.bestMan}</td></tr>
           <tr>
-            <td colSpan={2} className="category-header"><h3>Groomsmen</h3></td>
+            <td colSpan={2} className="category-header"><h3>Matron of Honor</h3></td>
           </tr>
-          {entourageData.groomsmen.map((name, index) => (
-            <tr key={`groomsmen-${index}`}><td colSpan={2}>{name}</td></tr>
-          ))}
+          <tr><td colSpan={2}>{entourageData.matronOfHonor}</td></tr>
           <tr>
             <td colSpan={2} className="category-header"><h3>Maid of Honor</h3></td>
           </tr>
@@ -1190,12 +818,27 @@ const EntouragePage: React.FC = () => (
           {entourageData.bridesmaids.map((name, index) => (
             <tr key={`bridesmaid-${index}`}><td colSpan={2}>{name}</td></tr>
           ))}
+          <tr>
+            <td colSpan={2} className="category-header"><h3>Groomsmen</h3></td>
+          </tr>
+          {entourageData.groomsmen.map((name, index) => (
+            <tr key={`groomsmen-${index}`}><td colSpan={2}>{name}</td></tr>
+          ))}
         </tbody>
       </table>
 
-      {/* Bearers & Flower Girls Section */}
+      {/* Secondary Sponsors & Bearers Section */}
       <table className="entourage-table">
         <tbody>
+          <tr>
+            <td colSpan={2} className="category-header"><h3>Secondary Sponsors</h3></td>
+          </tr>
+          {entourageData.secondarySponsors.map((sponsor, index) => (
+            <tr key={`secondary-sponsor-${index}`}>
+              <td className="sponsor-role-col">{sponsor.role}:</td>
+              <td className="sponsor-col">{sponsor.names.join(" & ")}</td>
+            </tr>
+          ))}
           <tr>
             <td colSpan={2} className="category-header"><h3>Bearers</h3></td>
           </tr>
@@ -1206,16 +849,21 @@ const EntouragePage: React.FC = () => (
             </tr>
           ))}
           <tr>
-            <td colSpan={2} className="category-header"><h3>Flower Girls</h3></td>
+            <td colSpan={2} className="category-header"><h3>Flower Girl</h3></td>
           </tr>
           {entourageData.flowerGirls.map((name, index) => (
             <tr key={`flowergirl-${index}`}><td colSpan={2}>{name}</td></tr>
           ))}
+          <tr>
+            <td colSpan={2} className="category-header"><h3>Little Bride</h3></td>
+          </tr>
+          <tr><td colSpan={2}>{entourageData.littleBride}</td></tr>
         </tbody>
       </table>
     </div>
   </section>
 );
+
 const DresscodePage: React.FC = () => {
   const [ref2, isInView] = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
   const [gridRef2, isGridInView] = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
@@ -1251,19 +899,19 @@ const DresscodePage: React.FC = () => {
         >
           <div className="image-card">
             <img
-              src="https://placehold.co/600x800/E5A9A9/FFFFFF?text=Formal+Attire"
+              src="dress/female.png"
               alt="Example of formal attire"
             />
           </div>
           <div className="image-card">
             <img
-              src="https://placehold.co/600x800/B2D8D8/000000?text=Semi-Formal+Attire"
+              src="dress/couple.png"
               alt="Example of semi-formal attire"
             />
           </div>
           <div className="image-card">
             <img
-              src="https://placehold.co/600x800/EAEAEA/333333?text=Evening+Wear"
+              src="dress/male.png"
               alt="Example of evening wear"
             />
           </div>
@@ -1276,19 +924,19 @@ const DresscodePage: React.FC = () => {
           </p>
           <div className="color-palette-wrapper">
             <div className="color-swatch-container">
-              <div className="color-swatch" style={{ backgroundColor: '#F8F6F4' }}></div>
+              <div className="color-swatch" style={{ backgroundColor: '#FADADD' }}></div>
               <span className="color-label">Ivory</span>
             </div>
             <div className="color-swatch-container">
-              <div className="color-swatch" style={{ backgroundColor: '#A2C2C2' }}></div>
+              <div className="color-swatch" style={{ backgroundColor: '#E6A4B4' }}></div>
               <span className="color-label">Sage</span>
             </div>
             <div className="color-swatch-container">
-              <div className="color-swatch" style={{ backgroundColor: '#D4B9A7' }}></div>
+              <div className="color-swatch" style={{ backgroundColor: '#A267AC' }}></div>
               <span className="color-label">Dusty Rose</span>
             </div>
             <div className="color-swatch-container">
-              <div className="color-swatch" style={{ backgroundColor: '#8B4513' }}></div>
+              <div className="color-swatch" style={{ backgroundColor: '#6A1E55' }}></div>
               <span className="color-label">Chocolate</span>
             </div>
           </div>
@@ -1464,6 +1112,39 @@ const RsvpPage: React.FC = () => {
         )}
       </form>
     </section>
+  );
+};
+
+const Footer: React.FC = () => {
+  return (
+    <footer className="footer-container">
+      
+      <p className="footer-text">
+        &copy; {new Date().getFullYear()} Our Wedding. All Rights Reserved. Emerson and Justine Wedding.
+        <br />
+        Site Developed by: Webworks
+      </p>
+      <div className="social-icons">
+        {/* Facebook Icon */}
+        <a href="https://www.facebook.com/ronnel.santos08" target="_blank" rel="noopener noreferrer" className="social-icon-link" aria-label="Facebook">
+          <svg className="social-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 2.04C6.5 2.04 2 6.54 2 12.04c0 4.98 3.65 9.13 8.43 9.87v-7.75H7.72V12.04h2.71V9.77c0-2.68 1.63-4.16 4.04-4.16 1.16 0 2.16.21 2.16.21v2.37h-1.2c-1.18 0-1.54.73-1.54 1.48v1.78h2.64l-.42 2.7H14.1V21.9c4.78-.74 8.43-4.89 8.43-9.87C22 6.54 17.5 2.04 12 2.04z"/>
+          </svg>
+        </a>
+        {/* Messenger Icon */}
+        <a href="https://m.me/ronnel.santos08" target="_blank" rel="noopener noreferrer" className="social-icon-link" aria-label="Messenger">
+          <svg className="social-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.03 2 11.01c0 3.32 1.9 6.2 4.7 7.73l-.7 2.04 2.1-.64c.8.24 1.64.37 2.5.37 5.52 0 10-4.03 10-9.01S17.52 2 12 2zm0 16c-1.8 0-3.5-.47-5-1.3l-.6.18.3 1.05.7-.21c1.2-.36 2.4-.54 3.6-.54 4.41 0 8-3.13 8-7s-3.59-7-8-7-8 3.13-8 7c0 3.87 3.59 7 8 7zM10.5 8.5h3v2h-3v-2zm-3 0h2v2h-2v-2zm6 0h2v2h-2v-2z"/>
+          </svg>
+        </a>
+        {/* Email Icon */}
+        <a href="mailto:ronnel.santos08@gmail.com.com" className="social-icon-link" aria-label="Email">
+          <svg className="social-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+          </svg>
+        </a>
+      </div>
+    </footer>
   );
 };
 

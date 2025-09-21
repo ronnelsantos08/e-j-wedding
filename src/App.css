@@ -977,7 +977,6 @@ body {
 .image-card {
   position: relative;
   border-radius: 1rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   overflow: hidden;
   transform: scale(1);
   transition: transform 0.3s ease-in-out;
@@ -1066,7 +1065,6 @@ body {
 /* General Page Styling */
 .page-section {
   padding: 40px 20px;
-  background-color: #f9f9f9;
   font-family: 'Georgia', serif; /* Use an elegant serif font */
   color: #333;
   line-height: 1.6;
@@ -1095,6 +1093,7 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   gap: 30px;
+  width: 100%;
 }
 
 .entourage-table {
@@ -1125,7 +1124,6 @@ body {
   text-align: left;
   vertical-align: top;
   border-bottom: 1px solid #eee;
-  white-space: nowrap; /* Prevents long names from wrapping */
 }
 
 .entourage-table td.sponsor-col {
@@ -1308,5 +1306,185 @@ body {
 
   .video-subtitle {
     font-size: 1rem;
+  }
+}
+
+/* LocationPage.css */
+
+/* General page and typography styles */
+.location-section {
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #fc88f0 0%, #eebbeb 40%, #e0d7f7 100%);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  font-family: 'Cormorant Garamond', serif; /* Elegant serif font */
+  color: #3d3d3d;
+  line-height: 1.6;
+  margin: 5%;
+}
+
+.location-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.location-title {
+  text-align: center;
+  font-size: 3.5rem;
+  color: #5b5b5b;
+  margin-bottom: 10px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.location-description {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 50px;
+  font-style: italic;
+  color: #7a7a7a;
+  font-size: 1.1rem;
+}
+
+/* Location cards and grid */
+.location-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+}
+
+.location-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  padding: 30px;
+  flex: 1 1 450px; /* Allows cards to grow and shrink responsively */
+  text-align: center;
+}
+
+.venue-type {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: #c0a78b; /* Light gold color for a touch of elegance */
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* New CSS for the images */
+.venue-image {
+  width: 100%; /* Make image responsive within its container */
+  height: 250px; /* Fixed height for consistency */
+  object-fit: cover; /* Ensures the image covers the area without distortion */
+  border-radius: 8px; /* Slightly rounded corners for the image */
+  margin-bottom: 20px; /* Space between image and venue name */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
+}
+
+.venue-name {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #3d3d3d;
+}
+
+.venue-address {
+  font-size: 1rem;
+  color: #7a7a7a;
+  margin-bottom: 20px;
+}
+
+.map-button {
+  display: inline-block;
+  padding: 10px 25px;
+  background-color: #5b5b5b;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.map-button:hover {
+  background-color: #c0a78b;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .location-grid {
+    flex-direction: column;
+  }
+}
+
+
+/* Footer container styles */
+.footer-container {
+  background: linear-gradient(90deg, rgb(142, 56, 161) 0%, #232323 100%);
+  padding: clamp(12px, 1.5vw, 24px) clamp(16px, 2vw, 32px);
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  color: #ffffff;
+  font-size: clamp(0.75rem, 1vw, 0.9rem);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+  margin-top: clamp(16px, 2vw, 32px);
+  width: 100%;
+}
+
+.footer-text {
+  margin: 0;
+  line-height: clamp(1.3, 1.5vw, 1.5);
+}
+
+/* Social icons container */
+.social-icons {
+  margin-top: clamp(12px, 1.5vw, 24px);
+  display: flex;
+  justify-content: center;
+  gap: clamp(12px, 1.5vw, 24px);
+}
+
+.social-icon-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(30px, 3vw, 40px);
+  height: clamp(30px, 3vw, 40px);
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icon-link:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-3px);
+}
+
+.social-icon-link:active {
+  transform: translateY(0);
+}
+
+.social-icon-svg {
+  width: 60%;
+  height: 60%;
+  fill: #ffffff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .footer-container {
+    padding: clamp(8px, 1.2vw, 16px);
+    font-size: clamp(0.7rem, 1vw, 0.85rem);
+  }
+  .social-icons {
+    gap: clamp(8px, 1vw, 16px);
+  }
+  .social-icon-link {
+    width: clamp(25px, 2.5vw, 35px);
+    height: clamp(25px, 2.5vw, 35px);
   }
 }
