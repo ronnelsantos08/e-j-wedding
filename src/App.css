@@ -134,7 +134,7 @@ body {
 }
 
 .brand-link:hover {
-  color: #9f7fc9; /* Lighter purple on hover */
+  color: #bf14a3; /* Lighter purple on hover */
 }
 
 .nav-links-desktop {
@@ -159,7 +159,7 @@ body {
 }
 
 .nav-link:hover {
-  color: #6b4d85; /* Darker purple on hover */
+  color: #bf14a3; /* Darker purple on hover */
 }
 
 .rsvp-button {
