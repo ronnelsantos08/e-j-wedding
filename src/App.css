@@ -1320,6 +1320,8 @@ body {
   color: #3d3d3d;
   line-height: 1.6;
   margin: 5%;
+
+  width: 100%;
 }
 
 .location-container {
@@ -1330,7 +1332,7 @@ body {
 .location-title {
   text-align: center;
   font-size: clamp(2rem, 1vw, 100rem);
-  color: #5b5b5b;
+  color: #6b4d85;
   margin-bottom: 10px;
   font-family: 'Playfair Display', serif;
   font-weight: 700;
@@ -1356,7 +1358,7 @@ body {
 }
 
 .location-card {
-  background-color: #ffffff;
+  background-color: rgb(255, 221, 255);
   border-radius: 10px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
   padding: 30px;
@@ -1367,7 +1369,7 @@ body {
 .venue-type {
   font-family: 'Playfair Display', serif;
   font-size: 1.5rem;
-  color: #c0a78b; /* Light gold color for a touch of elegance */
+  color: #6b4d85; /* Light gold color for a touch of elegance */
   margin-bottom: 15px;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -1387,7 +1389,7 @@ body {
   font-size: 1.8rem;
   font-weight: 600;
   margin-bottom: 15px;
-  color: #3d3d3d;
+  color: #6b4d85;
 }
 
 .venue-address {
@@ -1486,5 +1488,137 @@ body {
   .social-icon-link {
     width: clamp(25px, 2.5vw, 35px);
     height: clamp(25px, 2.5vw, 35px);
+  }
+}
+
+
+.gift-section {
+  padding: 60px 20px;
+  background-color: #f8f4f0; /* Soft beige background - fallback if image doesn't load */
+  font-family: 'Cormorant Garamond', serif; /* Elegant serif font */
+  color: #3d3d3d;
+  line-height: 1.6;
+  text-align: center;
+  width: 100%;
+
+  /* --- Background Image Styles --- */
+  background-image: url('gift/gift.png'); /* 🚨 Replace with your image path */
+  background-size: cover; /* Ensures the image covers the entire section */
+  background-position: center; /* Centers the background image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  /* Optional: Add a subtle overlay for better text readability */
+  position: relative; /* Needed for the pseudo-element overlay */
+  z-index: 1; /* Ensures the content is above the overlay */
+}
+
+/* Optional: Overlay for better text readability on top of background image */
+.gift-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.6); /* White overlay with 60% opacity */
+  z-index: -1; /* Puts the overlay behind the content but above the background image */
+}
+
+
+.gift-container {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative; /* Ensures container content is above the overlay */
+  z-index: 2; /* Higher than the overlay's z-index */
+}
+
+.gift-title {
+  font-size: clamp(2rem, 1vw, 100rem);
+  color: #5b5b5b;
+  margin-bottom: 20px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.gift-message {
+  font-style: italic;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto 30px;
+}
+
+.gift-reasons {
+  background-color: rgb(215, 166, 215);
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  padding: 30px;
+  margin-bottom: 40px;
+  display: inline-block;
+  text-align: left;
+}
+
+.gift-reasons p {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.gift-reasons ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.gift-reasons li {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.emoji {
+  margin-right: 10px;
+  font-size: 1.2em;
+}
+
+/* QR Code Section */
+.qr-codes {
+  margin-top: 40px;
+}
+
+.qr-text {
+  font-size: 1rem;
+  font-style: italic;
+  margin-bottom: 25px;
+}
+
+.qr-code-grid {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+.qr-code-item {
+  text-align: center;
+  flex-basis: 200px;
+}
+
+.qr-code-img {
+  width: 100%;
+  height: auto;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.qr-code-label {
+  margin-top: 10px;
+  font-weight: 600;
+  color: #5b5b5b;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .gift-title {
+    font-size: 2.5rem;
   }
 }

@@ -467,6 +467,8 @@ const HomePage: React.FC = () => {
 
       {/* RSVP Section */}
       <RsvpPage />
+
+      <GiftSection />
          {/* Footer Section */}
          <Footer />
     </>
@@ -1111,6 +1113,46 @@ const RsvpPage: React.FC = () => {
           </p>
         )}
       </form>
+    </section>
+  );
+};
+
+const GiftSection: React.FC = () => {
+  return (
+    <section className="gift-section" id="gifts">
+      <div className="gift-container">
+        <h2 className="gift-title">Gifts for the Couple</h2>
+        <p className="gift-message">
+          Your presence and support on our wedding day are the greatest gifts we could receive. If you wish to honor us with a gift, a monetary contribution would be warmly appreciated as we begin our new life together.
+        </p>
+        <div className="gift-reasons">
+          <p>Your generous contributions will help us in three significant ways:</p>
+          <ul>
+            <li><span className="emoji"></span> HONEYMOON</li>
+            <li><span className="emoji"></span> NEW HOME</li>
+            <li><span className="emoji"></span> FUTURE KIDS</li>
+          </ul>
+        </div>
+        <div className="qr-codes">
+          <p className="qr-text">You can scan one of the QR codes below to make a contribution for our future.</p>
+          <div className="qr-code-grid">
+            <div className="qr-code-item">
+              <img
+                src="gift/gcash.jpg"
+                alt="QR Code for Contribution"
+                className="qr-code-img"
+              />
+            </div>
+            <div className="qr-code-item">
+              <img
+                src="gift/bpi.jpg"
+                alt="QR Code for Contribution"
+                className="qr-code-img"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };
