@@ -1329,7 +1329,7 @@ body {
 
 .location-title {
   text-align: center;
-  font-size: 3.5rem;
+  font-size: clamp(2rem, 1vw, 100rem);
   color: #5b5b5b;
   margin-bottom: 10px;
   font-family: 'Playfair Display', serif;
