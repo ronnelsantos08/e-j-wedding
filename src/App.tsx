@@ -1118,6 +1118,16 @@ const RsvpPage: React.FC = () => {
 };
 
 const GiftSection: React.FC = () => {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const handleImageClick = (src: string) => {
+    setSelectedImage(src);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedImage(null);
+  };
+
   return (
     <section className="gift-section" id="gifts">
       <div className="gift-container">
@@ -1139,20 +1149,33 @@ const GiftSection: React.FC = () => {
             <div className="qr-code-item">
               <img
                 src="gift/gcash.jpg"
-                alt="QR Code for Contribution"
+                alt="GCash QR Code"
                 className="qr-code-img"
+                onClick={() => handleImageClick('gift/gcash.jpg')}
               />
             </div>
             <div className="qr-code-item">
               <img
                 src="gift/bpi.jpg"
-                alt="QR Code for Contribution"
+                alt="BPI QR Code"
                 className="qr-code-img"
+                onClick={() => handleImageClick('gift/bpi.jpg')}
               />
             </div>
           </div>
         </div>
       </div>
+
+      {selectedImage && (
+        <div className="modal-overlay" onClick={handleCloseModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <img src={selectedImage} alt="Enlarged QR Code" className="modal-img" />
+            <button className="close-button" onClick={handleCloseModal}>
+              &times;
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
