@@ -1502,7 +1502,7 @@ body {
   width: 100%;
 
   /* --- Background Image Styles --- */
-  background-image: url('gift/gift.png'); /* 🚨 Replace with your image path */
+  background-image: url('gift/gift1.png'); /* 🚨 Replace with your image path */
   background-size: cover; /* Ensures the image covers the entire section */
   background-position: center; /* Centers the background image */
   background-repeat: no-repeat; /* Prevents the image from repeating */
