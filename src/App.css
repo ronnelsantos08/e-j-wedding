@@ -1660,3 +1660,14 @@ body {
     font-size: 2.5rem;
   }
 }
+
+audio {
+  position: absolute;       /* stays fixed even when scrolling */
+  top: 10px;             /* distance from the top */
+  left: 50%;             /* center horizontally */
+  transform: translateX(-50%); /* perfect centering */
+  width: 300px;          /* adjust width */
+  opacity: .6;          /* slightly transparent */
+  border-radius: 8px;
+  z-index: 1000;         /* make sure it's above other elements */
+}

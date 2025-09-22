@@ -366,12 +366,13 @@ const HomePage: React.FC = () => {
 
       {/* The Hero Section content, which sits on top of both layers */}
       <section className="hero-section">
-        <div className="hero-content">
-             <div className="flex justify-center items-center py-8">
       <audio controls>
         <source src="/audio/music.mp3" type="audio/mp3" />
         Your browser does not support the audio element.
       </audio>
+        <div className="hero-content">
+             <div className="flex justify-center items-center py-8">
+   
     </div>
         </div>
       </section>
