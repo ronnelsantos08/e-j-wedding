@@ -638,6 +638,7 @@ const LocationSlider: React.FC = () => {
         <p className="location-description">
           Join us as we celebrate our union at these beautiful locations.
         </p>
+     
 
         <div className="location-grid">
           {/* Ceremony Card */}
@@ -652,6 +653,7 @@ const LocationSlider: React.FC = () => {
             <p className="venue-address">
               Paseo del Congreso, Malolos, 3000 Bulacan, Philippines
             </p>
+            <p className="venue-time">Ceremony Time: 2:30 PM</p>
             <a
               href="https://maps.app.goo.gl/EgE3KXnctAcq357w8"
               target="_blank"
@@ -672,10 +674,10 @@ const LocationSlider: React.FC = () => {
             />
             <h4 className="venue-name">San Pablo MPC Pavilion</h4>
             <p className="venue-address">
-              A. Mabini Street, San Pablo City, 4000 Laguna, Philippines
+            346 Calle Bonifacio, Malolos, Bulacan, Philippines
             </p>
             <a
-              href="https://maps.app.goo.gl/hd25za6MM9QpbqQu9"
+              href="https://maps.app.goo.gl/ABM5avZ23NQ5dCXGA"
               target="_blank"
               rel="noopener noreferrer"
               className="map-button"
@@ -749,7 +751,7 @@ const entourageData = {
     { role: "Bible Bearer", name: "Kervin Cadampog" },
   ],
   flowerGirls: [
-    "Maheesha Cadampog",
+    "Ingrid Finette De Leon",
   ],
   littleBride: "NA",
 };

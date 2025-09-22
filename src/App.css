@@ -1314,7 +1314,7 @@ body {
 /* General page and typography styles */
 .location-section {
   padding: 60px 20px;
-  background: linear-gradient(135deg, #fc88f0 0%, #eebbeb 40%, #e0d7f7 100%);
+  background: linear-gradient(135deg, #fbd1f7 0%, #eebbeb 40%, #e0d7f7 100%);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   font-family: 'Cormorant Garamond', serif; /* Elegant serif font */
   color: #3d3d3d;
