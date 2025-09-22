@@ -1430,8 +1430,8 @@ body {
   padding: clamp(12px, 1.5vw, 24px) clamp(16px, 2vw, 32px);
   text-align: center;
   font-family: 'Inter', sans-serif;
-  color: #ffffff;
-  font-size: clamp(0.75rem, 1vw, 0.9rem);
+  color: rgb(237, 132, 216);
+  font-size: clamp(0.01rem, 1vw, 100rem);
   box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
   margin-top: clamp(16px, 2vw, 32px);
   width: 100%;
