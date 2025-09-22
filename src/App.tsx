@@ -929,20 +929,24 @@ const DresscodePage: React.FC = () => {
           </p>
           <div className="color-palette-wrapper">
             <div className="color-swatch-container">
-              <div className="color-swatch" style={{ backgroundColor: '#FADADD' }}></div>
-              <span className="color-label">Ivory</span>
+              <div className="color-swatch" style={{ backgroundColor: '#fb7fb3' }}></div>
+              <span className="color-label">Baby Pink</span>
             </div>
             <div className="color-swatch-container">
-              <div className="color-swatch" style={{ backgroundColor: '#E6A4B4' }}></div>
-              <span className="color-label">Sage</span>
+              <div className="color-swatch" style={{ backgroundColor: '#f74e92' }}></div>
+              <span className="color-label">Old Rose</span>
             </div>
             <div className="color-swatch-container">
-              <div className="color-swatch" style={{ backgroundColor: '#A267AC' }}></div>
-              <span className="color-label">Dusty Rose</span>
+              <div className="color-swatch" style={{ backgroundColor: '#c3a8df' }}></div>
+              <span className="color-label">Lavander</span>
             </div>
             <div className="color-swatch-container">
-              <div className="color-swatch" style={{ backgroundColor: '#6A1E55' }}></div>
-              <span className="color-label">Chocolate</span>
+              <div className="color-swatch" style={{ backgroundColor: '#582c5e' }}></div>
+              <span className="color-label">Violet</span>
+            </div>
+            <div className="color-swatch-container">
+              <div className="color-swatch" style={{ backgroundColor: '#black' }}></div>
+              <span className="color-label">Black</span>
             </div>
           </div>
         </div>
