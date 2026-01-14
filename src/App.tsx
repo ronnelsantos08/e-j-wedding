@@ -440,7 +440,7 @@ const HomePage: React.FC = () => {
           <div className="about-us-text-container">
             <h2 className="about-us-title">Our Story</h2>
             <p className="about-us-text-body">
-              Our journey began years ago with a simple hello. From that moment, a bond was formed that grew stronger with every shared laugh, every late-night conversation, and every challenge we faced together. We've built a life filled with love, adventure, and unwavering support. Now, we are ready to take the next step and promise forever to each other.
+            Our love story began years ago in an online world, where fate quietly brought two hearts together. What started as an unexpected connection blossomed into a love beyond anything we could have imagined. From that very first moment, our bond deepened—woven through shared laughter, late-night conversations, and every challenge we faced hand in hand. Together, we have created a life filled with love, adventure, and unwavering devotion. Now, with full hearts, we are ready to take the next step and promise forever to each other.
             </p>
           </div>
           <div className="about-us-image-container">
@@ -639,7 +639,6 @@ const LocationSlider: React.FC = () => {
         <p className="location-description">
           Join us as we celebrate our union at these beautiful locations.
         </p>
-     
 
         <div className="location-grid">
           {/* Ceremony Card */}
@@ -650,11 +649,11 @@ const LocationSlider: React.FC = () => {
               alt="Church of Barasoain"
               className="venue-image"
             />
-            <h4 className="venue-name">Church of Barasoain</h4>
-            <p className="venue-address">
-              Paseo del Congreso, Malolos, 3000 Bulacan, Philippines
-            </p>
-            <p className="venue-time">Ceremony Time: 2:30 PM</p>
+            <h4 className="venue-name">
+              Our Lady of Mt. Carmel Parish – Barasoain Church
+            </h4>
+            <p className="venue-address">Diocese of Malolos</p>
+            <p className="venue-time">Ceremony Time: 3:00 PM</p>
             <a
               href="https://maps.app.goo.gl/EgE3KXnctAcq357w8"
               target="_blank"
@@ -675,7 +674,7 @@ const LocationSlider: React.FC = () => {
             />
             <h4 className="venue-name">San Pablo MPC Pavilion</h4>
             <p className="venue-address">
-            346 Calle Bonifacio, Malolos, Bulacan, Philippines
+              346 Calle Bonifacio, Malolos, Bulacan, Philippines
             </p>
             <a
               href="https://maps.app.goo.gl/ABM5avZ23NQ5dCXGA"
@@ -687,10 +686,59 @@ const LocationSlider: React.FC = () => {
             </a>
           </div>
         </div>
+
+        {/* Program Flow */}
+      {/* Program Flow Timeline */}
+<div className="program-flow">
+  <h3 className="program-title">Program Flow</h3>
+  <p className="program-subtitle">
+    An evening filled with love and celebration
+  </p>
+
+  <div className="timeline">
+    <div className="timeline-item">
+      <span className="timeline-time">3:00 PM</span>
+      <span className="timeline-dot"></span>
+      <span className="timeline-event">Wedding Ceremony</span>
+    </div>
+
+    <div className="timeline-item">
+      <span className="timeline-time">4:30 PM</span>
+      <span className="timeline-dot"></span>
+      <span className="timeline-event">Post-Ceremony Photos</span>
+    </div>
+
+    <div className="timeline-item">
+      <span className="timeline-time">5:30 PM</span>
+      <span className="timeline-dot"></span>
+      <span className="timeline-event">Guest Registration</span>
+    </div>
+
+    <div className="timeline-item">
+      <span className="timeline-time">6:15 PM</span>
+      <span className="timeline-dot"></span>
+      <span className="timeline-event">Reception Proper</span>
+    </div>
+
+    <div className="timeline-item">
+      <span className="timeline-time">7:15 PM</span>
+      <span className="timeline-dot"></span>
+      <span className="timeline-event">Dinner & Program</span>
+    </div>
+
+    <div className="timeline-item">
+      <span className="timeline-time">9:15 PM</span>
+      <span className="timeline-dot"></span>
+      <span className="timeline-event">Send-Off</span>
+    </div>
+  </div>
+</div>
+
       </div>
     </section>
   );
 };
+
 
 // Define the updated data structure
 const entourageData = {
@@ -711,6 +759,7 @@ const entourageData = {
     "Alvin Lauderes",
     "Dante Lauderes",
     "Manny Lauderes",
+    "Jesus Cadampog",
   ],
   principalSponsorsMrs: [
     "Mila Abrio",
@@ -721,18 +770,19 @@ const entourageData = {
     "Mary Rose Lauderes",
     "Gerlie Lauderes",
     "Julieta Capili",
+    "Edna Cadampog",
   ],
   bestMan: "Dexon Baronda",
   matronOfHonor: "Patricia May Patnon",
-  maidOfHonor: "Janelle Ericka Abrio",
+  maidOfHonor: "Janelle John Ericka Abrio",
   bridesmaids: [
     "Rizalyn Bristol",
     "Camille Lauderes",
     "Nicole Ann Aczon",
     "Anna May Allapitan",
     "Jonesa Lauderes",
-    "Shane Abrio",
-    "Shena Abrio",
+    "Shane Melanie Abrio",
+    "Shena Melody Abrio",
   ],
   groomsmen: [
     "John Mark Abrio",
@@ -748,7 +798,7 @@ const entourageData = {
   ],
   bearers: [
     { role: "Ring Bearer", name: "Kody Cadampog" },
-    { role: "Arrhae Bearer", name: "Thirdy Patnon" },
+    { role: "Arrhae Bearer", name: "Burt Milo III Magallon" },
     { role: "Bible Bearer", name: "Kervin Cadampog" },
   ],
   flowerGirls: [
